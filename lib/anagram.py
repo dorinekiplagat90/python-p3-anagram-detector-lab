@@ -1,10 +1,22 @@
+
+# lib/anagram.py
+
 class Anagram:
     def __init__(self, word):
+        # store the original word in lowercase for case-insensitive comparison
         self.word = word.lower()
-        self.sorted_word = sorted(self.word)
 
-    def match(self, words):
-        return [
-            w for w in words
-            if w.lower() != self.word and sorted(w.lower()) == self.sorted_word
-        ]
+    def match(self, candidates):
+        matches = []
+        sorted_word = sorted(self.word)  # sorted letters of the original word
+
+        for candidate in candidates:
+            candidate_lower = candidate.lower()
+            # skip if candidate is identical to the original word
+            if candidate_lower == self.word:
+                continue
+            # check if sorted letters match
+            if sorted(candidate_lower) == sorted_word:
+                matches.append(candidate)
+
+        return matches
